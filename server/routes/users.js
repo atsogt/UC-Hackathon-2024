@@ -21,14 +21,11 @@ router.post('/register', async (req, res) => {
   try {
     const {name, email, password, isAdmin, interests} = req.body;
     const user = new User({name, email, password, isAdmin, interests});
-    const token = await user.generateAuthToken();
     await user.save();
-    console.log(user);
-    res.status(201).send('success')
+    res.status(201).send({ message: 'Registration successful' })
   } catch (error) {
-    res.status(400).send(error)
+    res.status(400).send(error.message || 'Registration failed')
   }
-
 })
 
 router.get('/me', async (req, res) => {

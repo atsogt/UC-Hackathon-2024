@@ -15,21 +15,70 @@ import {
 } from "@mui/material";
 
 export default function SignUp() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [registrationNumber, setRegistrationNumber] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [role, setRole] = useState("");
+  // const [registrationNumber, setRegistrationNumber] = useState("");
+  const [user, setUser] = useState({name: '', email: '', password: '', isAdmin: true, interests: []})
+  // const [formData, setFormData] = useState({name: 'Anad', email: 'atsogt@gmail.com', password: 'kjnasdeflkjas', isAdmin: true, interests: []});
 
-  const handleSignUp = () => {
-    // Handle signup logic here
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
-    console.log("Name:", name);
-    console.log("Role:", role);
-    console.log("Registration Number:", registrationNumber);
+
+  const {name, email, password, isAdmin, interests} = user
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3001/users/register',
+ {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user),
+
+      });
+
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
+      const data = await response.json();
+      console.log('Registration successful:', data);
+
+      // Handle successful registration (e.g., redirect to login page)
+    } catch (error) {
+      console.error('Registration error:', error);
+      // Handle error (e.g., display error message to the user)
+    }
+    // // Handle signup logic here
+    // console.log(user)
+    // try {
+    //   const response = await fetch('http://localhost:3001/users/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({name, email, password, isAdmin, interests}),
+    //   });
+    //   console.log(response.json());
+    // } catch (error) {
+    //   console.error('Registration error:', error);
+    // }
+    // try {
+      // const response = await fetch('http://localhost:3001/users/register', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({user}),
+      // });
+  
+    //   if (!response.ok) {
+    //     throw new Error('Registration failed');
+    //   }
+  
+    //   const data = await response.json();
+    //   console.log('Registration successful:', data);
+     
+    // } catch (error) {
+    //   console.error('Registration error:', error);
+    // }
   };
 
   return (
@@ -47,25 +96,25 @@ export default function SignUp() {
                 margin="normal"
                 fullWidth
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
-              <TextField
+              {/* <TextField
                 label="Username"
                 variant="outlined"
                 margin="normal"
                 fullWidth
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-              />
+              /> */}
               <TextField
                 label="Email"
                 variant="outlined"
                 margin="normal"
                 fullWidth
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
-              <FormControl variant="outlined" margin="normal" fullWidth>
+              {/* <FormControl variant="outlined" margin="normal" fullWidth>
                 <InputLabel>Role</InputLabel>
                 <Select
                   value={role}
@@ -75,15 +124,15 @@ export default function SignUp() {
                   <MenuItem value="student">Student</MenuItem>
                   <MenuItem value="teacher">Teacher</MenuItem>
                 </Select>
-              </FormControl>
-              <TextField
+              </FormControl> */}
+              {/* <TextField
                 label="Registration Number"
                 variant="outlined"
                 margin="normal"
                 fullWidth
                 value={registrationNumber}
                 onChange={(e) => setRegistrationNumber(e.target.value)}
-              />
+              /> */}
               <TextField
                 label="Password"
                 type="password"
@@ -91,7 +140,7 @@ export default function SignUp() {
                 margin="normal"
                 fullWidth
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
               <Button
                 variant="contained"

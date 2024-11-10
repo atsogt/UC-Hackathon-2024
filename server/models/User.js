@@ -23,19 +23,22 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     isAdmin: { type: Boolean, default: false },
-    interests: {type: Array, default: [], validate(value) {
-      if(!this.isAdmin && value.length < 5) {
-        throw new Error('Need atleast 5 interests')
-      }
-    }},
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true
-        }
-      }
-    ]
+    interests: {type: Array, default: []
+    //   , validate(value) {
+    //   if(!this.isAdmin && value.length < 5) {
+    //     throw new Error('Need atleast 5 interests')
+    //   }
+    // }
+  }
+  // ,
+  //   tokens: [
+  //     {
+  //       token: {
+  //         type: String,
+  //         required: true
+  //       }
+  //     }
+  //   ]
 });
 
 userSchema.methods.toJSON = function () {
