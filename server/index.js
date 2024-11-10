@@ -14,13 +14,13 @@ const newStudent = new Student({
   interests: ['coding', 'gaming', 'reading']
 });
 
-newStudent.save()
-  .then(savedStudent => {
-    console.log('Student saved successfully:', savedStudent);
-  })
-  .catch(err => {
-    console.error('Error saving student:', err);
-  });
+// newStudent.save()
+//   .then(savedStudent => {
+//     console.log('Student saved successfully:', savedStudent);
+//   })
+//   .catch(err => {
+//     console.error('Error saving student:', err);
+//   });
 
 const app = express();
 app.use(cors());
