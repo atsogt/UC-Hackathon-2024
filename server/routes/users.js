@@ -22,11 +22,37 @@ router.post('/register', async (req, res) => {
     const {name, email, password, isAdmin, interests} = req.body;
     const user = new User({name, email, password, isAdmin, interests});
     await user.save();
-    res.status(201).send({ message: 'Registration successful' })
+    res.status(201).send({ message: 'Registration successful', userId: user._id })
   } catch (error) {
     res.status(400).send(error.message || 'Registration failed')
   }
 })
+
+router.patch('/users/:userId/interests', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { interests } = req.body;
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the user's   
+ interests
+    user.interests = interests;
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).json({ message: 'Interests updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 router.get('/me', async (req, res) => {
   User.find({}).then(users => res.send(users)).catch(e => res.status(500).send('Server is down'))

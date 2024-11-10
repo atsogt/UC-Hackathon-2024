@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 import {
   Container,
   Box,
@@ -20,14 +21,43 @@ import {
 } from "@mui/icons-material";
 
 export default function Features() {
+  const {userId} = useParams();
   const [selectedFeatures, setSelectedFeatures] = useState([]);
 
   const handleFeatureChange = (event, newFeatures) => {
     setSelectedFeatures(newFeatures);
   };
+console.log('this is the user ID!' + userId)
+  const handleSubmit = async () => {
+  
+//     console.log("Selected Features:", selectedFeatures);
 
-  const handleSubmit = () => {
-    console.log("Selected Features:", selectedFeatures);
+//     try {
+//       const response = await fetch('http://localhost:3001/users/register',
+//  {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         // body: JSON.stringify(user),
+
+//       });
+
+//       if (!response.ok) {
+//         throw new Error('Registration failed');
+//       }
+
+//       const data = await response.json();
+//       console.log('Registration successful:', data);
+//       // if(data.message === 'Registration successful' && user.isAdmin) {
+//       //   navigate('/assignment')
+//       // }else if (data.message === 'Registration successful' && !user.isAdmin) {
+//       //   navigate('/features')
+//       // }
+
+//       // Handle successful registration (e.g., redirect to login page)
+//     } catch (error) {
+//       console.error('Registration error:', error);
+//       // Handle error (e.g., display error message to the user)
+//     }
   };
 
   return (

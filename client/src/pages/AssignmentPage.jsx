@@ -25,6 +25,18 @@ export default function AssignmentPage() {
       setUploading(true);
       setProgress(0);
       console.log("File uploaded:", file.name);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        const words = text.split(/\s+/); // Split by whitespace
+    
+        // Process each word
+        words.forEach((word) => {
+          console.log(word);
+        });
+      };
+    
+      reader.readAsText(file);
       // Simulate an upload process
       const interval = setInterval(() => {
         setProgress((prevProgress) => {

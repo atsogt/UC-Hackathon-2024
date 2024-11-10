@@ -18,8 +18,11 @@ import People from "./pages/People";
 import Profile from "./pages/Profile";
 import "./App.css";
 import ViewAssignment from "./pages/ViewAssignment";
+import { useParams } from 'react-router-dom';
 
 function App() {
+  const {userId} = useParams();
+
   // const [data, setData] = useState(0)
 
   // useEffect(() => {
@@ -33,6 +36,7 @@ function App() {
   //   }
   //   fetchData()
   // }, [])
+  const feautures = '/feautures/' + userId;
 
   return (
     <>
@@ -43,7 +47,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/features" element={<Features />} />
+          <Route path={feautures} element={<Features />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/assignment" element={<AssignmentPage />} />
           <Route path="/people" element={<People />} />
